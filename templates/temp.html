@@ -1,0 +1,118 @@
+<! -- loads the path to your static files -->
+{% extends 'graphs.html' %}
+{% block plotstyle %}
+.chartWrapper {
+    position: relative;
+}
+.chartWrapper > canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events:none;
+}
+.chartAreaWrapper {
+    overflow-x: scroll;
+    position: relative;
+    width: 100%;
+    }
+
+.chartAreaWrapper2 {
+    position: relative;
+    height: 480px;
+}
+{% endblock %}
+
+
+{% block plot %}
+<div class="chartWrapper">
+    <div class="chartAreaWrapper">
+        <div class="chartAreaWrapper2">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+        <canvas id="myChartAxis" height="300" width="0"></canvas>
+`       <form id="insert" onsubmit="datapoints()">
+        <label>Number of Past Data Points to be Shown: </label>
+        <input type="number" name="keywords">
+        <input type="submit" value="Ok">
+    </form>
+    <script>
+          function datapoints(){
+            var action_src = $("keywords").val();
+            var your_form = $('insert').val();
+
+    var urlLink = "http://localhost/graphs/temp3/";
+    urlLink = urlLink + action_src;
+    your_form.action = urlLink;
+}
+
+    </script>
+</div>
+
+
+
+
+
+<script>
+var chartData = {
+        labels: [{% for time in data %} "{{ time.time }}", {% endfor %}],
+        datasets: [{
+            label: "Temperature In",
+            data: [{% for temp_in in data %} "{{ temp_in.temp_in }}", {% endfor %}],
+            backgroundColor: 'rgb(77, 184, 255, 0.5)',
+            borderColor: '#777',
+            hoverBorderWidth:3,
+            hoverBorderColor: '#000',
+        }, {
+            label: "Temperature Out",
+            data: [{% for temp_out in data %} "{{ temp_out.temp_out }}", {% endfor %}],
+            backgroundColor: 'rgba(255,99,132,0.35)',
+            borderColor: '#777',
+            hoverBorderWidth:3,
+            hoverBorderColor: '#000',
+        }, {
+            label: "Oil Temperature",
+            data: [{% for temp_oil in data %} "{{ temp_oil.temp_oil }}", {% endfor %}],
+            backgroundColor: 'rgb(255, 219, 77, 0.3)',
+            borderColor: '#777',
+            hoverBorderWidth:3,
+            hoverBorderColor: '#000',
+        }],
+};
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var chart = {
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title:{
+                    display: true,
+                    text: 'Temperature Graph Fridge {{num}}',
+                    fontSize: 25,
+                    position: 'top',
+            },
+            animation: {
+                onComplete: function(animation) {
+                    var sourceCanvas = myLiveChart.chart.canvas;
+                    var copyWidth = myLiveChart.scales['y-axis-0'].width - 10;
+                    var copyHeight = myLiveChart.scales['y-axis-0'].height + myLiveChart.scales['y-axis-0'].top + 10;
+                    var targetCtx = document.getElementById("myChartAxis").getContext("2d");
+                    targetCtx.canvas.width = copyWidth;
+                    targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
+                }
+            },
+        },
+        type: 'line',
+        data: chartData,
+};
+
+
+var myLiveChart = new Chart(ctx, chart);
+setInterval(function () {
+    var newwidth = 10*{{len}};
+    $('.chartAreaWrapper2').width(newwidth);
+    $('.chartAreaWrapper').animate({scrollLeft:newwidth});
+    }, 5000);
+
+</script>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+body {
+  font-family: "Lato", sans-serif;
+}
+.sidenav {
+  height: 95%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top: 55px;
+  left: 0;
+  background-color: #000000;
+  overflow-x: hidden;
+  padding-top: 0px;
+}
+
+.sidenav a {
+  padding: 15px 15px 15px 0px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  display: block;
+  text-align: left;
+}
+
+.sidenav a:hover {
+  color: #262626;
+}
+
+.main {
+  margin-left: 190px; /* Same as the width of the sidenav */
+  font-size: 12px; /* Increased text to enable scrolling */
+  padding: 0px 0px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 10px;}
+}
+.collapsible {
+  background-color: #1a1a1a;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+}
+
+.active, .collapsible:hover {
+  background-color: #737373;
+  color: white;
+}
+
+.content {
+  padding: 0 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #a6a6a6;
+}
+{% block plotstyle %}
+{% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="sidenav">
+    <div class="sidenav-header">
+            <h2 class="sidenav-brand" style="color:white;">Fridges:</h2>
+    </div>
+    <button class="collapsible">Fridge 1</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp1/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press1/500">Pressure Plot</a>
+        </div>
+
+    <button class="collapsible">Fridge 2</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp2/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press2/500">Pressure Plot</a>
+        </div>
+
+    <button class="collapsible">Fridge 3</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp3/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press3/500">Pressure Plot</a>
+        </div>
+
+    <button class="collapsible">Fridge 4</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp4/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press4/500">Pressure Plot</a>
+        </div>
+
+    <button class="collapsible">Fridge 5</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp5/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press5/500">Pressure Plot</a>
+        </div>
+
+    <button class="collapsible">Fridge 6</button>
+        <div class="content">
+            <a class="dropdown-item" href="/graphs/temp6/500">Temperature Plot</a>
+            <a class="dropdown-item" href="/graphs/press6/500">Pressure Plot</a>
+        </div>
+    <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+</div>
+
+<div class="main">
+    {% block plot %}
+
+    <h6>
+        This page contains Temperature and Pressure graphs for all the 6 fridges in the Petta Lab.
+    </h6>
+    <img src="https://datavizcatalogue.com/methods/images/top_images/line_graph.png">
+
+    {% endblock %}
+</div>
+
+{% endblock %}

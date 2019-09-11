@@ -1,0 +1,100 @@
+<! -- loads the path to your static files -->
+{% extends 'graphs.html' %}
+{% block plotstyle %}
+.chartWrapper {
+    position: relative;
+}
+
+.chartWrapper > canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events:none;
+}
+.chartAreaWrapper {
+    overflow-x: scroll;
+    position: relative;
+    width: 100%;
+    }
+
+.chartAreaWrapper2 {
+    position: relative;
+    height: 480px;
+}
+{% endblock %}
+
+
+{% block plot %}
+<div class="chartWrapper">
+    <div class="chartAreaWrapper">
+        <div class="chartAreaWrapper2">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+        <canvas id="myChartAxis" height="300" width="0"></canvas>
+    <div class="w3-section">
+        <label>Insert Number of Past Data Points to be shown:</label>
+        <input class="w3-input" type="text" name="Name" required>
+        <button type="submit" class="w3-button w3-right w3-theme" href="/">Send</button>
+      </div>
+</div>
+
+
+<script>
+var labels = [];
+
+var chartData = {
+        labels: [{% for time in data %} {{ time.time }}, {% endfor %}],
+        datasets: [{
+            label: "Water Pressure In",
+            data: [{% for press in data %} "{{ press.press_in }}", {% endfor %}],
+            backgroundColor: 'rgb(77, 184, 255, 0.3)',
+            borderColor: '#777',
+            hoverBorderWidth:3,
+            hoverBorderColor: '#000',
+        }, {
+            label: "Water Pressure Out",
+            data: [{% for press in data %} "{{ press.press_out }}", {% endfor %}],
+            backgroundColor: 'rgb(255, 71, 26, 0.7)',
+            borderColor: '#777',
+            hoverBorderWidth:3,
+            hoverBorderColor: '#000',
+        }],
+    };
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var chart = {
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title:{
+                    display: true,
+                    text: 'Pressure Graph Fridge {{num}}',
+                    fontSize: 25,
+                    position: 'top',
+            },
+            animation: {
+                onComplete: function(animation) {
+                    var sourceCanvas = myLiveChart.chart.canvas;
+                    var copyWidth = myLiveChart.scales['y-axis-0'].width - 10;
+                    var copyHeight = myLiveChart.scales['y-axis-0'].height + myLiveChart.scales['y-axis-0'].top + 10;
+                    var targetCtx = document.getElementById("myChartAxis").getContext("2d");
+                    targetCtx.canvas.width = copyWidth;
+                    targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
+                }
+            }
+        },
+        type: 'line',
+        data: chartData,
+};
+
+
+var myLiveChart = new Chart(ctx, chart);
+setInterval(function () {
+    var newwidth = 10*{{len}};
+    $('.chartAreaWrapper2').width(newwidth);
+    $('.chartAreaWrapper').animate({scrollLeft:newwidth});
+    }, 5000);
+
+</script>
+{% endblock %}

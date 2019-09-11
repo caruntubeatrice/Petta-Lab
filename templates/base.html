@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %} PettaLab {% endblock %}
+    </title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://unpkg.com/moment" ></script>
+<style>
+ body{
+     background-image: linear-gradient(to right, #d1e0e0, #ffffff, #d1e0e0);
+     /* height: 900; */
+     /* background-image: linear-gradient(#d1e0e0, asta e culoarea veche #ccddff); */
+    /* background-color: AliceBlue; */
+}
+.navbar{
+    border-radius: 0;
+    background-color: #000000;
+}
+    {% block styles %}
+    {% endblock %}
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+   <nav class="navbar navbar-inverse navbar-static-top">
+
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/home/" class="navbar-brand"><i class="fa fa-home w3-margin-right"></i>PettaLab</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    <a href="#team">
+                        <span class="glyphicon glyphicon-education" aria-hidden="true"></span>&nbsp;Team
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#work">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;About
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/graphs/temp1/500">
+                        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Graphs
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="#contact">
+                        <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Contacts
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block body%}
+   <!-- Team Container -->
+<div class="w3-container w3-padding-64 w3-center" id="team">
+<h2>OUR TEAM</h2><br>
+
+
+    <div class="w3-row">
+        <div class="w3-center">
+            <img src="https://phy.princeton.edu/sites/physics/files/styles/pwds_people_full/public/people/petta_jason.jpg?itok=tAYf3g6u" alt="Boss" style="width:75px" class="square"><br>
+            <a href="https://phy.princeton.edu/people/jason-petta" target="_blank">Jason Petta</a>
+            <p>Professor of Physics</p>
+        </div>
+    </div>
+
+<div class="w3-row"><br>
+
+<div class="w3-quarter">
+  <img src="https://phy.princeton.edu/sites/physics/files/styles/pwds_people_full/public/people/mills.jpg?itok=TqFfeHSq" alt="Boss" style="width:75px" class="square"><br>
+  <a href="https://phy.princeton.edu/people/adam-mills" target="_blank">Adam Mills</a>
+</div>
+
+<div class="w3-quarter">
+  <img src="https://phy.princeton.edu/sites/physics/files/styles/pwds_people_full/public/people/mayer_feldman8x10.jpg?itok=Q_8pnoiY" alt="Boss" style="width:75px" class="square"><br>
+  <a href="https://phy.princeton.edu/people/mayer-feldman" target="_blank">Mayer Feldman</a>
+</div>
+
+<div class="w3-quarter">
+  <img src="https://phy.princeton.edu/sites/physics/files/styles/pwds_people_full/public/people/shield_1.jpg?itok=SAlipfC5" alt="Boss" style="width:75px" class="square"><br>
+  <a href="https://phy.princeton.edu/people/xanthe-croot" target="_blank">Xanthe Croot</a>
+</div>
+
+<div class="w3-quarter">
+  <img src="https://phy.princeton.edu/sites/physics/files/styles/pwds_people_full/public/people/felix_borjans.jpg?itok=K--uSm6F" alt="Boss" style="width:75px" class="square"><br>
+    <a href="https://phy.princeton.edu/people/felix-borjans" target="_blank">Felix Borjans</a>
+</div>
+
+</div>
+</div>
+   <!-- Work Row -->
+<div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+<div class="w3-half">
+<h2>Our Work</h2>
+<p>Our research focuses on quantum control of nanometer scale systems. Semiconductor quantum dots are used to isolate single electron spins, which exhibit long quantum coherence times. These systems allow quantum mechanics to be harnessed in a solid state environment for the implementation of quantum gates. We use nanofabrication to create artificially structured systems with experimentally tunable Hamiltonians that can be controlled on sub-nanosecond timescales. Recent research examines strong light-matter interactions in the circuit quantum electrodynamics architecture, with a goal of generating long-range many body entanglement. Silicon and diamond are ideal host materials for spin coherence, leading to spin coherence times that now approach 10 seconds. A major effort in the group consists of developing a scalable quantum computing architecture in isotopically purified silicon. Research advances are enabled by a tight feedback loop that links nanoscale materials synthesis and advanced transport measurements.</p>
+</div>
+
+<div class="w3-half">
+<div class="w3-card w3-white">
+  <img src="http://pettagroup.princeton.edu/images/image0.jpg" alt="Snow" style="width:100%">
+  <div class="w3-container">
+    <a href="http://pettagroup.princeton.edu/index.html" target="_blank">Petta Group Link</a>
+  </div>
+  </div>
+</div>
+
+</div>
+
+    <!-- Contact Container -->
+<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+  <div class="w3-row">
+    <div class="w3-col m5">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
+      <h3>Group Address</h3>
+        <p>Petta Group</p>
+        <p>Jadwin Hall, Department of Physics</p>
+        <p>Princeton University</p>
+      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Princeton, New Jersey, USA</p>
+      <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  (609) 258-1183</p>
+      <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>For further information, please contact Professor Jason Petta, petta@princeton.edu</p>
+    </div>
+    <div class="w3-col m7">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input" type="text" name="Message" required>
+      </div>
+      <input class="w3-check" type="checkbox" checked name="Like">
+      <label>I Like it!</label>
+      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+</div>
+</div>
+</body>
+</html>
